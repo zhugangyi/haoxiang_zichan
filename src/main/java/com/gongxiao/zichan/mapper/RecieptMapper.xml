@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gongxiao.zichan.dao.RecieptDao" >
+  <resultMap id="BaseResultMap" type="com.gongxiao.zichan.model.Reciept" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="custom" property="custom" jdbcType="VARCHAR" />
+    <result column="contract" property="contract" jdbcType="VARCHAR" />
+    <result column="receiptdate" property="receiptdate" jdbcType="DATE" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, custom, contract, receiptdate, amount, name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gongxiao.zichan.model.RecieptExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_reciept
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_reciept
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_reciept
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gongxiao.zichan.model.RecieptExample" >
+    delete from t_reciept
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gongxiao.zichan.model.Reciept" >
+    insert into t_reciept (id, custom, contract, 
+      receiptdate, amount, name
+      )
+    values (#{id,jdbcType=INTEGER}, #{custom,jdbcType=VARCHAR}, #{contract,jdbcType=VARCHAR}, 
+      #{receiptdate,jdbcType=DATE}, #{amount,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gongxiao.zichan.model.Reciept" >
+    insert into t_reciept
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="custom != null" >
+        custom,
+      </if>
+      <if test="contract != null" >
+        contract,
+      </if>
+      <if test="receiptdate != null" >
+        receiptdate,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="custom != null" >
+        #{custom,jdbcType=VARCHAR},
+      </if>
+      <if test="contract != null" >
+        #{contract,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptdate != null" >
+        #{receiptdate,jdbcType=DATE},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gongxiao.zichan.model.RecieptExample" resultType="java.lang.Integer" >
+    select count(*) from t_reciept
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_reciept
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.custom != null" >
+        custom = #{record.custom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contract != null" >
+        contract = #{record.contract,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiptdate != null" >
+        receiptdate = #{record.receiptdate,jdbcType=DATE},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_reciept
+    set id = #{record.id,jdbcType=INTEGER},
+      custom = #{record.custom,jdbcType=VARCHAR},
+      contract = #{record.contract,jdbcType=VARCHAR},
+      receiptdate = #{record.receiptdate,jdbcType=DATE},
+      amount = #{record.amount,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gongxiao.zichan.model.Reciept" >
+    update t_reciept
+    <set >
+      <if test="custom != null" >
+        custom = #{custom,jdbcType=VARCHAR},
+      </if>
+      <if test="contract != null" >
+        contract = #{contract,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptdate != null" >
+        receiptdate = #{receiptdate,jdbcType=DATE},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gongxiao.zichan.model.Reciept" >
+    update t_reciept
+    set custom = #{custom,jdbcType=VARCHAR},
+      contract = #{contract,jdbcType=VARCHAR},
+      receiptdate = #{receiptdate,jdbcType=DATE},
+      amount = #{amount,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
