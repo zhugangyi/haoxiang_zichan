@@ -43,20 +43,19 @@ public class PicsController {
         return picsService.selectByExample(example);
     }
 
-    @RequestMapping(value = "/addPicsData",method = RequestMethod.POST)  //向数据库写入图片信息
-    public @ResponseBody boolean uploadPics(@RequestBody List<Pics> pics){
 
-        String filePath = "d:\\imgs\\"+ pics.get(0).getBelongtotable()+"\\";
+    //前端 this.$http.post("Pics/addPicsData/", this.Pics)
+    @RequestMapping(value = "/addPicsData",method = RequestMethod.POST)  //向数据库写入图片信息
+    public @ResponseBody boolean uploadPics(@RequestBody Pics pics){
+
+        String filePath = "d:\\zgy\\src\\assets\\img\\"+ pics.getBelongtotable()+"\\";
         boolean added = false;
 
-        for (int i = 0; i < pics.size(); i++) {
-
-            if (picsService.uploadPics(pics.get(i))>0){
+        if (picsService.uploadPics(pics)>0){
                 added = true;
             }else{
                 added = false;
             }
-        }
         return added;
 //        if (picsService.uploadPics(pics)>0){
 //            System.out.println("数据上传成功");
@@ -72,14 +71,13 @@ public class PicsController {
         String fileName = file.getOriginalFilename();
 //        String filePath = request.getSession().getServletContext().getRealPath(path);
 
-        String filePath = "d:\\imgs\\zichan\\";
+        String filePath = "d:\\zgy\\src\\assets\\img\\zichan\\";
         boolean uploaded = false;
 
 
         try {
             FileUtils.upload(file.getBytes(),filePath,fileName);
             uploaded = true;
-            System.out.println(file.getOriginalFilename());
         } catch (Exception e) {
             e.printStackTrace();
         }
