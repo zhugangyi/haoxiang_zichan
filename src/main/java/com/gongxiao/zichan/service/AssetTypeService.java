@@ -12,7 +12,14 @@ import java.util.List;
 public class AssetTypeService {
     @Resource
     AssettypeDao assettypeDao;
+
     public List<Assettype> assetTypeList(AssettypeExample example){
         return assettypeDao.selectByExample(example);
     }
+
+    public int insert(Assettype record){return assettypeDao.insert(record);}
+
+    public int update(Assettype record){return assettypeDao.updateByPrimaryKey(record);}
+
+    public int delete(int id){return assettypeDao.deleteByPrimaryKey(id);}
 }

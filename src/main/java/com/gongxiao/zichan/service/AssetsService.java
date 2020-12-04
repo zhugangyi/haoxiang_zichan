@@ -24,4 +24,8 @@ public class AssetsService {
         return assetsDao.selectByExample(example);
     }
 
+    public int deleteAsset(int id) { return assetsDao.deleteByPrimaryKey(id);}
+
+    public int modifyAsset(Assets record) { return assetsDao.updateByPrimaryKey(record);}
+
 }

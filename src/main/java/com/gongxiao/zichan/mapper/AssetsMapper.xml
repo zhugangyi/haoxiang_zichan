@@ -14,6 +14,7 @@
     <result column="price" property="price" jdbcType="DECIMAL" />
     <result column="proportion" property="proportion" jdbcType="DECIMAL" />
     <result column="assetstatus" property="assetstatus" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -75,7 +76,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, name, address, area, assettype, assetlevel, comment, coordinate, tipname, price, 
-    proportion, assetstatus
+    proportion, assetstatus, parentId
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gongxiao.zichan.model.AssetsExample" >
     select
@@ -111,13 +112,13 @@
     insert into t_assets (id, name, address, 
       area, assettype, assetlevel, 
       comment, coordinate, tipname, 
-      price, proportion, assetstatus
-      )
+      price, proportion, assetstatus, 
+      parentId)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{area,jdbcType=VARCHAR}, #{assettype,jdbcType=VARCHAR}, #{assetlevel,jdbcType=INTEGER}, 
       #{comment,jdbcType=VARCHAR}, #{coordinate,jdbcType=VARCHAR}, #{tipname,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DECIMAL}, #{proportion,jdbcType=DECIMAL}, #{assetstatus,jdbcType=VARCHAR}
-      )
+      #{price,jdbcType=DECIMAL}, #{proportion,jdbcType=DECIMAL}, #{assetstatus,jdbcType=VARCHAR}, 
+      #{parentid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.gongxiao.zichan.model.Assets" >
     insert into t_assets
@@ -158,6 +159,9 @@
       <if test="assetstatus != null" >
         assetstatus,
       </if>
+      <if test="parentid != null" >
+        parentId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -195,6 +199,9 @@
       </if>
       <if test="assetstatus != null" >
         #{assetstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -243,6 +250,9 @@
       <if test="record.assetstatus != null" >
         assetstatus = #{record.assetstatus,jdbcType=VARCHAR},
       </if>
+      <if test="record.parentid != null" >
+        parentId = #{record.parentid,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -261,7 +271,8 @@
       tipname = #{record.tipname,jdbcType=VARCHAR},
       price = #{record.price,jdbcType=DECIMAL},
       proportion = #{record.proportion,jdbcType=DECIMAL},
-      assetstatus = #{record.assetstatus,jdbcType=VARCHAR}
+      assetstatus = #{record.assetstatus,jdbcType=VARCHAR},
+      parentId = #{record.parentid,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -302,6 +313,9 @@
       <if test="assetstatus != null" >
         assetstatus = #{assetstatus,jdbcType=VARCHAR},
       </if>
+      <if test="parentid != null" >
+        parentId = #{parentid,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -317,7 +331,8 @@
       tipname = #{tipname,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
       proportion = #{proportion,jdbcType=DECIMAL},
-      assetstatus = #{assetstatus,jdbcType=VARCHAR}
+      assetstatus = #{assetstatus,jdbcType=VARCHAR},
+      parentId = #{parentid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

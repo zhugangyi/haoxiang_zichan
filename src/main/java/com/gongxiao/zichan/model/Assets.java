@@ -25,6 +25,8 @@ public class Assets {
 
     private String assetstatus;
 
+    private Integer parentid;
+
     public Integer getId() {
         return id;
     }
@@ -119,5 +121,13 @@ public class Assets {
 
     public void setAssetstatus(String assetstatus) {
         this.assetstatus = assetstatus == null ? null : assetstatus.trim();
+    }
+
+    public Integer getParentid() {
+        return parentid;
+    }
+
+    public void setParentid(Integer parentid) {
+        this.parentid = parentid;
     }
 }

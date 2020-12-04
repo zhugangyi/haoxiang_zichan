@@ -33,7 +33,7 @@ public class PicsController {
     public PicsController() {
     }
 
-    @RequestMapping(value = "selectByExample")
+    @RequestMapping(value = "/selectByExample")
     public List<Pics> selectByExample(@RequestParam(value = "belongtoid",required = true) String belongtoid,
                                       @RequestParam(value = "belongtotable",required = true) String belongtotable){
         PicsExample example = new PicsExample();
@@ -43,6 +43,10 @@ public class PicsController {
         return picsService.selectByExample(example);
     }
 
+    @RequestMapping(value = "deleteImg")
+    public int deleteImg(@RequestParam int id){
+        return picsService.deletePics(id);
+    }
 
     //前端 this.$http.post("Pics/addPicsData/", this.Pics)
     @RequestMapping(value = "/addPicsData",method = RequestMethod.POST)  //向数据库写入图片信息

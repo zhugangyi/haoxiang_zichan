@@ -17,4 +17,6 @@ public class PicsService {
 
     public List<Pics> selectByExample(PicsExample example){return picsDao.selectByExample(example);}
 
+    public int deletePics(int id) { return picsDao.deleteByPrimaryKey(id);}
+
 }

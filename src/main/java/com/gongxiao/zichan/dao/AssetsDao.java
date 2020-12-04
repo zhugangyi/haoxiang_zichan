@@ -2,9 +2,8 @@ package com.gongxiao.zichan.dao;
 
 import com.gongxiao.zichan.model.Assets;
 import com.gongxiao.zichan.model.AssetsExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface AssetsDao {
     int countByExample(AssetsExample example);

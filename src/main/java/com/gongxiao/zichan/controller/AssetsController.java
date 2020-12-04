@@ -22,12 +22,21 @@ public class AssetsController {
         return assetsService.selectAssetById(id);
     }
 
+    @RequestMapping(value = "/deleteAsset")
+    public int deleteAsset(@RequestParam int id){
+        return assetsService.deleteAsset(id);
+    }
+
+    @RequestMapping(value = "/modifyAsset")
+    public int modifyAsset(@RequestBody Assets record){
+        return assetsService.modifyAsset(record);
+    }
     @RequestMapping(value = "/selectByExample")
     public PageInfo<Assets> assetsList(@RequestParam(value = "type" , required = false) String type,
-                                                @RequestParam(value = "name" , required = false) String name,
-                                                @RequestParam(value = "address" , required = false) String address,
-                                                @RequestParam(value = "pageNum" , required = false) int pageNum,
-                                                @RequestParam(value = "pageSize" , required = false) int pageSize)
+                                       @RequestParam(value = "name" , required = false) String name,
+                                       @RequestParam(value = "address" , required = false) String address,
+                                       @RequestParam(value = "pageNum" , required = false) int pageNum,
+                                       @RequestParam(value = "pageSize" , required = false) int pageSize)
             {//三个查询参数 资产类型 and （资产名称 or 资产地址）
                 AssetsExample example = new AssetsExample();
         AssetsExample.Criteria criteria1 = example.createCriteria();
@@ -45,6 +54,8 @@ public class AssetsController {
         }
 
         example.or(criteria2);
+        //此排序方法能根据条件排序出父资产和子资产排在按顺序排在一起，父资产和子资产有一致的parentId
+        example.setOrderByClause("parentId,assetlevel,id");
                 PageHelper.startPage(pageNum,pageSize);
         List<Assets> assets = assetsService.assetsList(example);
 
